@@ -1,11 +1,12 @@
 ---
 layout: post
-title:  "무효화된 반복자를 사용했던 버그;;"
+title:  무효화된 반복자를 사용했던 버그
 date:   2011-02-02 00:02:26 +0900
-categories: jekyll update
+categories: coding
 ---
 최근 크런치모드 로 달리는 와중에 나왔던 버그.
 
+~~~cpp
 void CUser::Func()
 {
 	std::vector::iterator iter;
@@ -18,6 +19,7 @@ void CUser::Func()
 	item.someVariable = someValue;  // 위에서 erase 하는 경우, 
                              // item 무효화로 엉뚱한 메모리 침범
 }
+~~~
 
 reference의 구현은 보통(?) 메모리 주소이다. m_items 이 담고 있는 Item 중 하나를 레퍼런스로 물고 있는 상태에서 m_items 중 하나가 erase 되면, item 레퍼런스는 실제로는 엉뚱한 메모리를 가리킬 수 있고, 이 때 item에 접근하면 메모리침범.
 (잘못된 주소는 힙 상에 어느 주소인데, 크래시라도 났으면 좋았을 걸;; 지저분하게 다른 멀쩡한 힙 데이터(바로 뒤 Item)을 망가뜨리고 있었다;;)
