@@ -1,0 +1,8 @@
+.custom-book-image
+{
+    width: 30%;
+    margin: 0 auto;
+    margin-bottom: 15px;
+    border: 1px solid black;
+    display: block;
+}
